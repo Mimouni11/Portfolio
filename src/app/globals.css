@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS — The Aquatic Observatory
+   ───────────────────────────────────────────── */
+
+@theme {
+  /* ── Colors ── */
+  --color-obsidian:   #050B0F;   /* Deep Obsidian — primary background */
+  --color-aquamarine: #7FFFD4;   /* Enhanced Aquamarine — brand accent */
+  --color-cyan:       #00FFFF;   /* Interaction Cyan — interactive / hover */
+  --color-seafoam:    #20B2AA;   /* Secondary Seafoam — supporting accent */
+
+  /* Surface tints (obsidian + slight lift) */
+  --color-surface:    #0A1520;   /* cards / glass base */
+  --color-surface-2:  #0D1E2C;   /* nested surfaces */
+
+  /* ── Typography ── */
+  --font-display: var(--font-display), "Space Grotesk", sans-serif;
+  --font-body:    var(--font-body),    "Inter",         sans-serif;
+
+  /* ── Font weights ── */
+  --font-weight-light:   300;
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semi:    600;
+  --font-weight-bold:    700;
+
+  /* ── Letter spacing ── */
+  --tracking-display: -0.04em;   /* Display LG — tight */
+  --tracking-heading: -0.02em;   /* Heading MD */
+  --tracking-wide:     0.08em;   /* Labels / eyebrow text */
+
+  /* ── Blur (glassmorphism) ── */
+  --blur-glass:  32px;           /* standard glass backdrop blur */
+  --blur-glow:   20px;           /* text / edge glow falloff */
+
+  /* ── Shadows / Glow ── */
+  --shadow-glow-aquamarine: 0 0 20px rgba(127, 255, 212, 0.40);
+  --shadow-glow-cyan:       0 0 20px rgba(0,   255, 255, 0.40);
+  --shadow-glow-seafoam:    0 0 20px rgba(32,  178, 170, 0.40);
+  --shadow-radial:          0 8px 48px rgba(127, 255, 212, 0.08); /* radial diffusion */
+
+  /* ── Transitions ── */
+  --duration-fast:   200ms;
+  --duration-normal: 400ms;
+  --duration-slow:   700ms;
+  --ease-cinematic:  cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Scale ── */
+  --scale-active: 1.05;
+
+  /* ── Border ── */
+  --border-glass: 1px solid rgba(127, 255, 212, 0.20); /* glass module stroke */
+}
+
+/* ─────────────────────────────────────────────
+   UTILITY CLASSES
+   ───────────────────────────────────────────── */
+
+@utility glass {
+  backdrop-filter: blur(var(--blur-glass));
+  background-color: rgba(10, 21, 32, 0.60);  /* surface at 60% */
+  border: var(--border-glass);
+}
+
+@utility glow-aquamarine {
+  box-shadow: var(--shadow-glow-aquamarine);
+}
+
+@utility glow-cyan {
+  box-shadow: var(--shadow-glow-cyan);
+}
+
+@utility glow-text-aquamarine {
+  text-shadow: 0 0 var(--blur-glow) rgba(127, 255, 212, 0.40);
+}
+
+@utility glow-text-cyan {
+  text-shadow: 0 0 var(--blur-glow) rgba(0, 255, 255, 0.40);
+}
+
+@utility inset-border-aquamarine {
+  box-shadow: inset 0 0 0 1px rgba(127, 255, 212, 0.30);
+}
+
+/* ─────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────── */
+
+body {
+  background-color: var(--color-obsidian);
+  color: white;
+  font-family: var(--font-body);
+}
