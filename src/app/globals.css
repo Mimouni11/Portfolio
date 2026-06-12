@@ -14,8 +14,8 @@
   --color-surface-2:  #0D1E2C;
 
   /* ── Typography ── */
-  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
-  --font-body:    var(--font-inter),         "Inter",         sans-serif;
+  --font-display: var(--font-syne),    "Syne",    sans-serif;
+  --font-body:    var(--font-dm-sans), "DM Sans", sans-serif;
 
   /* ── Font weights ── */
   --font-weight-light:   300;
@@ -25,7 +25,7 @@
   --font-weight-bold:    700;
 
   /* ── Letter spacing ── */
-  --tracking-display: -0.04em;
+  --tracking-display: -0.03em;
   --tracking-heading: -0.02em;
   --tracking-wide:     0.08em;
 
@@ -128,7 +128,32 @@ body {
   background-color: rgba(127, 255, 212, 0.30);
 }
 
+/* All headings default to Syne */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-heading);
+  line-height: 1.05;
+}
+
 @keyframes data-stream {
   0%   { transform: translateY(-100vh); }
   100% { transform: translateY(200vh); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-2px); opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes shimmer-x {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-8px); }
 }

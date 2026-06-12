@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import SocialSidebar from '@/components/SocialSidebar'
 import Footer from '@/components/Footer'
+import AmbientLines from '@/components/AmbientLines'
+import Eyebrow from '@/components/Eyebrow'
 import { projects } from '@/data/projects'
 
 export default function ProjectsPage() {
@@ -11,26 +13,22 @@ export default function ProjectsPage() {
       <SocialSidebar />
 
       <main className="relative overflow-hidden mesh-gradient min-h-screen">
+        <AmbientLines count={10} opacity={0.10} grid />
         <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-aquamarine/20 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-seafoam/20 blur-[150px] pointer-events-none" />
 
-        <section className="relative max-w-7xl mx-auto px-8 lg:px-12 pt-48 pb-32">
+        <section className="relative max-w-7xl mx-auto px-8 lg:px-12 pt-40 pb-32">
           {/* Heading */}
           <div className="mb-20">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-[2px] w-12 bg-aquamarine" />
-              <span className="font-body text-xs tracking-[0.3em] uppercase text-aquamarine font-bold">
-                Selected Work
-              </span>
-            </div>
-            <h1 className="font-display text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] text-white">
+            <Eyebrow label="Selected Work" />
+            <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-tight text-white">
               Projects &amp;{' '}
               <span className="text-aquamarine glow-text-aquamarine">Case Studies</span>
             </h1>
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((p) => (
               <Link
                 key={p.slug}
@@ -49,6 +47,11 @@ export default function ProjectsPage() {
                         'linear-gradient(rgba(127,255,212,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(127,255,212,0.3) 1px, transparent 1px)',
                       backgroundSize: '40px 40px',
                     }}
+                  />
+                  {/* Shimmer sweep on hover */}
+                  <div
+                    className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-aquamarine/10 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none"
+                    style={{ animation: 'shimmer-x 1.6s ease-in-out infinite' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent" />
                   <div className="absolute bottom-4 left-4">

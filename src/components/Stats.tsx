@@ -11,15 +11,27 @@ export default function Stats() {
       {stats.map(({ category, value, detail }) => (
         <div
           key={category}
-          className="glass border border-aquamarine/30 p-8 rounded-xl group hover:bg-aquamarine/10 transition-all hover:shadow-[0_0_40px_rgba(127,255,212,0.15)] cursor-default"
+          className="relative glass border border-aquamarine/30 p-8 rounded-xl group hover:bg-aquamarine/10 hover:border-aquamarine/60 transition-all duration-300 hover:shadow-[0_0_40px_rgba(127,255,212,0.15)] cursor-default overflow-hidden"
         >
-          <span className="font-body text-[10px] uppercase tracking-widest text-aquamarine mb-4 block font-bold">
-            {category}
-          </span>
-          <div className="font-display text-5xl font-bold text-white mb-1 group-hover:text-aquamarine transition-colors duration-300">
+          {/* Shimmer sweep on hover */}
+          <div
+            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-aquamarine/8 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none"
+            style={{ animation: 'shimmer-x 1.4s ease-in-out infinite' }}
+          />
+          {/* Top accent line */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-aquamarine/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-1 h-1 rounded-full bg-aquamarine animate-pulse" />
+            <span className="font-body text-[10px] uppercase tracking-widest text-aquamarine font-bold">
+              {category}
+            </span>
+          </div>
+
+          <div className="font-display text-5xl font-bold text-white mb-1 group-hover:text-aquamarine group-hover:glow-text-aquamarine transition-colors duration-300">
             {value}
           </div>
-          <div className="text-xs text-aquamarine/70 font-bold uppercase tracking-tighter">
+          <div className="text-xs text-aquamarine/60 font-bold uppercase tracking-tighter">
             {detail}
           </div>
         </div>

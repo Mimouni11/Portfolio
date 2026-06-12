@@ -32,10 +32,10 @@ export default function CaseStudyHero({ project }: { project: Project }) {
         </div>
 
         <h1 className="font-display font-bold tracking-tighter leading-[0.85] mb-6">
-          <span className="block text-7xl md:text-9xl text-aquamarine glow-text-aquamarine">
+          <span className="block text-4xl md:text-5xl lg:text-6xl text-aquamarine glow-text-aquamarine">
             {project.title[0]}
           </span>
-          <span className="block text-7xl md:text-9xl text-white">
+          <span className="block text-4xl md:text-5xl lg:text-6xl text-white">
             {project.title[1]}
           </span>
         </h1>

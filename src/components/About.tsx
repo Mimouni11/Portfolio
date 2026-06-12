@@ -5,7 +5,7 @@ import ContactForm from './about/ContactForm'
 
 export default function About() {
   return (
-    <section id="about" className="relative px-8 lg:px-12 py-32">
+    <section id="about" className="relative px-8 lg:px-12 pt-12 pb-32">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
         {/* ── Profile photo ── */}

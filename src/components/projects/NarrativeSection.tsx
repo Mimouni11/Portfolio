@@ -23,7 +23,7 @@ export function ChallengeSection({ challenge }: { challenge: Project['challenge'
           The Challenge
         </h2>
 
-        <h3 className="text-4xl font-display font-bold text-white mb-8 leading-tight">
+        <h3 className="text-2xl font-display font-bold text-white mb-8 leading-tight">
           {highlightAccent(challenge.heading, challenge.accentWord)}
         </h3>
 
@@ -59,7 +59,7 @@ export function SolutionSection({ solution }: { solution: Project['solution'] })
           The Solution
         </h2>
 
-        <h3 className="text-4xl font-display font-bold text-white mb-8 leading-tight">
+        <h3 className="text-2xl font-display font-bold text-white mb-8 leading-tight">
           {highlightAccent(solution.heading, solution.accentWord)}
         </h3>
 
