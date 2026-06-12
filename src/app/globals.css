@@ -127,3 +127,8 @@ body {
 ::selection {
   background-color: rgba(127, 255, 212, 0.30);
 }
+
+@keyframes data-stream {
+  0%   { transform: translateY(-100vh); }
+  100% { transform: translateY(200vh); }
+}
