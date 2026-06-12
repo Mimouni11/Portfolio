@@ -7,7 +7,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="max-w-7xl mx-auto px-8 lg:px-12 mt-40 grid grid-cols-2 md:grid-cols-4 gap-6">
+    <section className="max-w-7xl mx-auto px-8 lg:px-12 mt-10 grid grid-cols-2 md:grid-cols-4 gap-6">
       {stats.map(({ category, value, detail }) => (
         <div
           key={category}
