@@ -1,21 +1,20 @@
 import Link from 'next/link'
 import NeuralNetwork from './NeuralNetwork'
+import AmbientLines from './AmbientLines'
+import Eyebrow from './Eyebrow'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-48 pb-4 px-8 lg:px-12">
+    <section className="relative pt-40 pb-16 px-8 lg:px-12 overflow-hidden">
+      <AmbientLines count={10} opacity={0.10} />
+
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
 
         {/* ── Left: copy ── */}
         <div className="lg:col-span-7">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-[2px] w-12 bg-aquamarine" />
-            <span className="font-body text-xs tracking-[0.3em] uppercase text-aquamarine font-bold">
-              Alex Rivera — Architecting Digital Landscapes
-            </span>
-          </div>
+          <Eyebrow label="Alex Rivera — Architecting Digital Landscapes" />
 
-          <h1 className="font-display text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8 text-white">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] mb-8 text-white">
             Senior{' '}
             <span className="text-aquamarine glow-text-aquamarine">Full-Stack</span>{' '}
             Engineer &amp;{' '}
@@ -46,8 +45,18 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── Right: neural network ── */}
-        <div className="lg:col-span-5 mt-12 lg:mt-0">
+        {/* ── Right: neural network with HUD frame ── */}
+        <div className="lg:col-span-5 mt-12 lg:mt-0 relative" style={{ animation: 'float-slow 7s ease-in-out infinite' }}>
+          {/* HUD corner brackets */}
+          <div className="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-aquamarine/60 rounded-tl z-20" />
+          <div className="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-aquamarine/60 rounded-tr z-20" />
+          <div className="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-aquamarine/60 rounded-bl z-20" />
+          <div className="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-aquamarine/60 rounded-br z-20" />
+          {/* Live status badge */}
+          <div className="absolute -top-8 right-0 flex items-center gap-2 z-20">
+            <span className="w-1.5 h-1.5 rounded-full bg-aquamarine animate-pulse shadow-[0_0_6px_rgba(127,255,212,0.8)]" />
+            <span className="font-body text-[9px] tracking-widest uppercase text-aquamarine/60">Live Node</span>
+          </div>
           <NeuralNetwork />
         </div>
 

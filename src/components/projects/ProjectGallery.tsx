@@ -10,7 +10,7 @@ export default function ProjectGallery({
           <h2 className="text-xs font-bold tracking-[0.4em] text-aquamarine uppercase mb-4 font-body">
             Visual Journey
           </h2>
-          <p className="text-5xl font-display font-bold text-white">Project Gallery</p>
+          <p className="text-3xl md:text-4xl font-display font-bold text-white">Project Gallery</p>
         </div>
         <div className="flex gap-4">
           {['←', '→'].map((arrow) => (

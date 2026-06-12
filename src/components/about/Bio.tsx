@@ -10,7 +10,7 @@ export default function Bio() {
       </div>
 
       {/* Heading */}
-      <h2 className="font-display font-bold text-5xl xl:text-6xl leading-[1.0] tracking-tight mb-8">
+      <h2 className="font-display font-bold text-3xl md:text-4xl leading-tight tracking-tight mb-8">
         <span className="text-white">Engineering</span>
         <br />
         <span className="text-aquamarine glow-text-aquamarine">Philosophy</span>

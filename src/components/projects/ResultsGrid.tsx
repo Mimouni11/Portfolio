@@ -7,7 +7,7 @@ export default function ResultsGrid({ results }: { results: ProjectResult[] }) {
         <h2 className="text-xs font-bold tracking-[0.4em] text-aquamarine uppercase mb-4 font-body">
           The Impact
         </h2>
-        <p className="text-5xl font-display font-bold text-white glow-text-aquamarine">
+        <p className="text-3xl md:text-4xl font-display font-bold text-white glow-text-aquamarine">
           Measured Performance
         </p>
       </div>
