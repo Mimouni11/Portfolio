@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
+import TransitionProvider from "@/components/transitions/TransitionProvider";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -30,7 +31,9 @@ export default function RootLayout({
       className={`${syne.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-white font-body">
-        {children}
+        <TransitionProvider>
+          {children}
+        </TransitionProvider>
       </body>
     </html>
   );
