@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
+import { useIsClient } from '@/hooks/useIsClient'
 
 export default function ClickableImage({
   src,
@@ -15,6 +16,7 @@ export default function ClickableImage({
   width: number
   height: number
 }) {
+  const isClient = useIsClient()
   const [open, setOpen] = useState(false)
 
   return (
@@ -33,8 +35,11 @@ export default function ClickableImage({
         />
       </button>
 
-      {open && typeof document !== 'undefined' && createPortal(
+      {open && isClient && createPortal(
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={alt}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md"
           onClick={() => setOpen(false)}
         >

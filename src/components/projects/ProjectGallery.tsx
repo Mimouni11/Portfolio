@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
+import { useIsClient } from '@/hooks/useIsClient'
 
 const PAGE_SIZE = 4
 
@@ -11,9 +12,14 @@ export default function ProjectGallery({
 }: {
   gallery: Array<{ label: string; gradient: string; image?: string; document?: string }>
 }) {
+  const isClient = useIsClient()
   const [page, setPage] = useState(0)
   const [lightbox, setLightbox] = useState<{ src: string; label: string } | null>(null)
   const [documentViewer, setDocumentViewer] = useState<{ src: string; label: string } | null>(null)
+
+  useEffect(() => {
+    setPage(0)
+  }, [gallery.length])
 
   if (gallery.length === 0) return null
 
@@ -39,6 +45,7 @@ export default function ProjectGallery({
               <button
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                 disabled={page === 0}
+                aria-label="Previous page"
                 className="w-14 h-14 rounded-full border border-aquamarine/30 flex items-center justify-center hover:bg-aquamarine/20 transition-all text-aquamarine text-lg shadow-[0_0_15px_rgba(127,255,212,0.10)] disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 ←
@@ -46,6 +53,7 @@ export default function ProjectGallery({
               <button
                 onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={page === totalPages - 1}
+                aria-label="Next page"
                 className="w-14 h-14 rounded-full border border-aquamarine/30 flex items-center justify-center hover:bg-aquamarine/20 transition-all text-aquamarine text-lg shadow-[0_0_15px_rgba(127,255,212,0.10)] disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 →
@@ -105,8 +113,11 @@ export default function ProjectGallery({
         </div>
       </section>
 
-      {lightbox && typeof document !== 'undefined' && createPortal(
+      {lightbox && isClient && createPortal(
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.label}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md"
           onClick={() => setLightbox(null)}
         >
@@ -136,8 +147,11 @@ export default function ProjectGallery({
         document.body
       )}
 
-      {documentViewer && typeof document !== 'undefined' && createPortal(
+      {documentViewer && isClient && createPortal(
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={documentViewer.label}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
           onClick={() => setDocumentViewer(null)}
         >
@@ -163,7 +177,7 @@ export default function ProjectGallery({
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-sm text-white/70 transition-all hover:border-white/50 hover:text-white"
                   aria-label="Close document"
                 >
-                  âœ•
+                  ✕
                 </button>
               </div>
             </div>
