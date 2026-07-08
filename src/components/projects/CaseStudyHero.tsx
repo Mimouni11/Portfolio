@@ -2,7 +2,7 @@ import type { Project } from '@/data/projects'
 
 export default function CaseStudyHero({ project }: { project: Project }) {
   return (
-    <header className="relative w-full h-[870px] overflow-hidden">
+    <header className="relative w-full h-[520px] overflow-hidden">
       {/* Cover visual — swap for next/image when you have the real asset */}
       <div
         className="absolute inset-0 scale-105"

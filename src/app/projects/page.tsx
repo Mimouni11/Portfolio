@@ -1,12 +1,18 @@
-import Link from 'next/link'
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import SocialSidebar from '@/components/SocialSidebar'
 import Footer from '@/components/Footer'
 import AmbientLines from '@/components/AmbientLines'
 import Eyebrow from '@/components/Eyebrow'
+import ProjectModal from '@/components/projects/ProjectModal'
 import { projects } from '@/data/projects'
 
 export default function ProjectsPage() {
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
+
   return (
     <>
       <Header />
@@ -30,25 +36,34 @@ export default function ProjectsPage() {
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((p) => (
-              <Link
+              <button
                 key={p.slug}
-                href={`/projects/${p.slug}`}
-                className="group glass border border-aquamarine/25 rounded-2xl overflow-hidden hover:border-aquamarine/60 transition-all duration-300 luminous-edge"
+                onClick={() => setSelectedSlug(p.slug)}
+                className="group glass border border-aquamarine/25 rounded-2xl overflow-hidden hover:border-aquamarine/60 transition-all duration-300 luminous-edge text-left w-full"
               >
                 {/* Cover */}
                 <div
                   className="relative aspect-video overflow-hidden"
                   style={{ background: p.coverGradient, backgroundColor: '#020d0d' }}
                 >
-                  <div
-                    className="absolute inset-0 opacity-10"
-                    style={{
-                      backgroundImage:
-                        'linear-gradient(rgba(127,255,212,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(127,255,212,0.3) 1px, transparent 1px)',
-                      backgroundSize: '40px 40px',
-                    }}
-                  />
-                  {/* Shimmer sweep on hover */}
+                  {p.coverImage ? (
+                    <Image
+                      src={p.coverImage}
+                      alt={p.title.join(' ')}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage:
+                          'linear-gradient(rgba(127,255,212,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(127,255,212,0.3) 1px, transparent 1px)',
+                        backgroundSize: '40px 40px',
+                      }}
+                    />
+                  )}
                   <div
                     className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-aquamarine/10 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none"
                     style={{ animation: 'shimmer-x 1.6s ease-in-out infinite' }}
@@ -81,13 +96,21 @@ export default function ProjectsPage() {
                     ))}
                   </div>
                 </div>
-              </Link>
+              </button>
             ))}
           </div>
         </section>
       </main>
 
       <Footer />
+
+      {/* Case study modal */}
+      {selectedSlug && (
+        <ProjectModal
+          slug={selectedSlug}
+          onClose={() => setSelectedSlug(null)}
+        />
+      )}
     </>
   )
 }
