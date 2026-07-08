@@ -1,4 +1,5 @@
 import type { Project } from '@/data/projects'
+import ClickableImage from './ClickableImage'
 
 function highlightAccent(text: string, accentWord: string) {
   const idx = text.indexOf(accentWord)
@@ -67,26 +68,15 @@ export function SolutionSection({ solution }: { solution: Project['solution'] })
           {solution.body.map((p, i) => <p key={i}>{p}</p>)}
         </div>
 
-        {/* Solution visual placeholder */}
-        <div className="mt-12 rounded-xl overflow-hidden border border-aquamarine/20 shadow-2xl relative aspect-video">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(127,255,212,0.08) 0%, rgba(5,11,15,0.98) 100%)',
-            }}
+        {/* Solution visual */}
+        {solution.image && (
+          <ClickableImage
+            src={solution.image}
+            alt="Solution architecture diagram"
+            width={1600}
+            height={1200}
           />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="grid grid-cols-2 gap-3 p-8 w-full max-w-sm opacity-60">
-              {[85, 60, 40, 95].map((w, i) => (
-                <div key={i} className="space-y-2">
-                  <div className="h-2 bg-aquamarine/40 rounded-full" style={{ width: `${w}%` }} />
-                  <div className="h-6 bg-aquamarine/10 rounded border border-aquamarine/20" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   )
