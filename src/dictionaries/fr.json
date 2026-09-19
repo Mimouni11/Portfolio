@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "ACCUEIL",
+    "projects": "PROJETS",
+    "about": "À PROPOS",
+    "contact": "CONTACT",
+    "getInTouch": "Me contacter"
+  },
+  "hero": {
+    "eyebrow": "Mimouni Mohamed Aziz · Rades, Tunisie",
+    "h1_p1": "Ingénieur",
+    "h1_accent": "IA",
+    "h1_connector": "&",
+    "h1_italic": "Full-Stack",
+    "h1_p3": "Développeur.",
+    "tagline": "Je construis des choses qui fonctionnent en production : pipelines agentiques, systèmes d'IA générative et applications web full-stack. Python et TypeScript, des boucles d'entraînement aux produits déployés avec de vrais utilisateurs.",
+    "cta_portfolio": "Voir mon portfolio",
+    "cta_story": "Mon parcours"
+  },
+  "about": {
+    "status": "Déploiement : Actif",
+    "heading_1": "Philosophie",
+    "heading_2": "d'ingénierie",
+    "bio_1": "Ingénieur IA et fullstack qui livre en production. Je travaille sur toute la stack : des boucles d'entraînement et pipelines agentiques aux frontends React et APIs conteneurisées. Je tiens à ce que les utilisateurs réels puissent compter sur ce que je construis.",
+    "bio_1_accent": "production",
+    "bio_2": "Python et TypeScript sont mes langages principaux. Mes travaux couvrent l'IA générative (StyleGAN2, CLIP, SDXL), l'orchestration multi-agent (LangGraph, RAG, LLM-as-judge) et les services web en production (FastAPI, Next.js, Docker). Basé en Tunisie.",
+    "stack_label": "Stack principale",
+    "stack_roles": {
+      "python": "Colonne IA",
+      "pytorch": "Deep Learning",
+      "typescript": "Front + Back",
+      "fastapi": "Services API",
+      "nextjs": "Apps Web",
+      "langgraph": "IA agentique"
+    },
+    "cta_heading": "Collaborer ensemble ?",
+    "cta_body": "Que ce soit pour un projet, un poste ou une conversation qui vaut la peine.",
+    "cta_button": "Me contacter",
+    "experience_title": "Expérience professionnelle",
+    "jobs": [
+      {
+        "company": "NanoLab",
+        "role": "Chef de projet",
+        "period": "Avr 2026 – Présent",
+        "bullets": [
+          "Management d'une petite équipe pluridisciplinaire sur trois projets en parallèle : coordination des jalons, déblocage des décisions techniques et respect des délais.",
+          "Contribution à l'architecture et à la conception système sur l'ensemble des projets, avec un rôle actif dans l'orientation technique.",
+          "Développement du site web de l'entreprise from scratch avec Next.js."
+        ],
+        "stack": ["Next.js", "System Design", "Project Management"]
+      },
+      {
+        "company": "Bakchich",
+        "role": "Développeur à temps partiel",
+        "period": "Juil 2025 – Mars 2026",
+        "bullets": [
+          "Construction d'un système d'automatisation KYC from scratch : intégration de l'API de vérification d'identité Didit via un handler de webhooks et une machine à états. En production avec des dizaines de milliers d'utilisateurs, zéro interruption depuis le lancement.",
+          "Migration analytique complète sur un monorepo Next.js de 4 apps : remplacement de PostHog par Amplitude via un proxy Node.js côté serveur, éliminant les pertes de tracking côté client.",
+          "Maintenance et amélioration de 4 applications live en parallèle : correction de bugs en production, ajout du lazy loading, rendu partiel Suspense, conversion WebM et optimisations mobile."
+        ],
+        "stack": ["Next.js", "Node.js", "TypeScript", "Amplitude", "Didit API"]
+      },
+      {
+        "company": "Digital Identity",
+        "role": "Développeur fullstack (stage)",
+        "period": "Fév 2024 – Juin 2024",
+        "bullets": [
+          "Développement d'une plateforme complète de gestion de flotte (web + mobile) : suivi des véhicules en temps réel, routage OpenStreetMap, automatisation des flux par QR code et tableau de bord opérationnel, livré à un client réel."
+        ],
+        "stack": ["React", "Node.js", "OpenStreetMap", "REST API"]
+      }
+    ]
+  },
+  "aboutPage": {
+    "eyebrow": "L'Architecte",
+    "title_1": "À propos",
+    "title_accent": "de moi"
+  },
+  "projectsPage": {
+    "eyebrow": "Travaux sélectionnés",
+    "title_1": "Projets &",
+    "title_accent": "Études de cas"
+  },
+  "contactPage": {
+    "eyebrow_left": "Statut : Établissement du lien",
+    "eyebrow_right": "Noeud_Contact_V4.0",
+    "title": "INITIER_CONNEXION",
+    "subtitle": "Architecte système en attente de transmission. Pour des demandes de collaboration, protocoles techniques ou lignes directes, veuillez renseigner les paramètres ci-dessous."
+  },
+  "contactForm": {
+    "field_name_label": "01_IDENTITÉ // NOM COMPLET",
+    "field_name_placeholder": "Saisir la chaîne d'identification...",
+    "field_email_label": "02_FRÉQUENCE // ADRESSE EMAIL",
+    "field_email_placeholder": "utilisateur@domaine.protocole",
+    "field_message_label": "03_TRANSMISSION // CORPS DU MESSAGE",
+    "field_message_placeholder": "Rédigez votre message ici...",
+    "submit": "Envoyer la transmission",
+    "success_heading": "Transmission envoyée.",
+    "success_body": "Signal reçu. Établissement du canal de réponse en cours."
+  },
+  "meta": {
+    "home_title": "Mimouni Mohamed Aziz · Ingénieur IA & Développeur Full-Stack",
+    "home_description": "Ingénieur IA et fullstack construisant des pipelines agentiques, des systèmes d'IA générative et des applications web en production. Python et TypeScript, des boucles d'entraînement aux produits déployés.",
+    "about_title": "À propos · Mimouni Mohamed Aziz",
+    "about_description": "Ingénieur IA et fullstack basé en Tunisie. Python et TypeScript couvrant l'IA générative, l'orchestration multi-agent et les services web en production.",
+    "projects_title": "Projets · Mimouni Mohamed Aziz",
+    "projects_description": "Études de cas sélectionnées : FaceForge, AgileAI, Smart Cover, WavyVoice, Custom ERP et le site corporate NanoLab.",
+    "contact_title": "Contact · Mimouni Mohamed Aziz",
+    "contact_description": "Pour des collaborations, des projets techniques ou une conversation qui vaut la peine."
+  }
+}

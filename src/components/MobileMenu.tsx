@@ -1,17 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
-
-const links = [
-  { label: 'HOME', href: '/' },
-  { label: 'PROJECTS', href: '/projects' },
-  { label: 'ABOUT', href: '/about' },
-  { label: 'CONTACT', href: '/contact' },
-]
+import TransitionLink from './TransitionLink'
+import { useLocale } from '@/context/LocaleContext'
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false)
+  const { dict } = useLocale()
+  const n = dict.nav
+
+  const links = [
+    { label: n.home,     href: '/' },
+    { label: n.projects, href: '/projects' },
+    { label: n.about,    href: '/about' },
+    { label: n.contact,  href: '/contact' },
+  ]
 
   return (
     <div className="md:hidden relative">
@@ -20,21 +23,9 @@ export default function MobileMenu() {
         aria-label="Toggle navigation menu"
         className="flex flex-col gap-1 p-1 text-white"
       >
-        <span
-          className={`block w-5 h-px bg-current transition-all duration-200 origin-center ${
-            open ? 'rotate-45 translate-y-[6px]' : ''
-          }`}
-        />
-        <span
-          className={`block w-5 h-px bg-current transition-all duration-200 ${
-            open ? 'opacity-0' : ''
-          }`}
-        />
-        <span
-          className={`block w-5 h-px bg-current transition-all duration-200 origin-center ${
-            open ? '-rotate-45 -translate-y-[6px]' : ''
-          }`}
-        />
+        <span className={`block w-5 h-px bg-current transition-all duration-200 origin-center ${open ? 'rotate-45 translate-y-[6px]' : ''}`} />
+        <span className={`block w-5 h-px bg-current transition-all duration-200 ${open ? 'opacity-0' : ''}`} />
+        <span className={`block w-5 h-px bg-current transition-all duration-200 origin-center ${open ? '-rotate-45 -translate-y-[6px]' : ''}`} />
       </button>
 
       {open && (
@@ -42,23 +33,23 @@ export default function MobileMenu() {
           <ul className="flex flex-col gap-4">
             {links.map(({ label, href }) => (
               <li key={href}>
-                <Link
+                <TransitionLink
                   href={href}
                   onClick={() => setOpen(false)}
                   className="text-white/60 hover:text-aquamarine text-xs tracking-widest transition-colors duration-200 block"
                 >
                   {label}
-                </Link>
+                </TransitionLink>
               </li>
             ))}
             <li className="pt-2 border-t border-white/10">
-              <Link
+              <TransitionLink
                 href="/contact"
                 onClick={() => setOpen(false)}
                 className="text-aquamarine text-xs tracking-widest border border-aquamarine/30 px-4 py-2 rounded-full block text-center"
               >
-                Get in Touch
-              </Link>
+                {n.getInTouch}
+              </TransitionLink>
             </li>
           </ul>
         </div>

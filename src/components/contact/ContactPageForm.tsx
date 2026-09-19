@@ -1,18 +1,21 @@
 'use client'
 
 import { useState } from 'react'
+import { useLocale } from '@/context/LocaleContext'
 
 const underlineInput =
   'w-full bg-transparent border-b border-aquamarine/20 py-4 font-body text-xl text-white placeholder-white/20 focus:outline-none focus:border-aquamarine transition-colors duration-300'
 
-const fields = [
-  { id: 'name',    label: '01_IDENTITY // FULL NAME',         type: 'text',  placeholder: 'Enter identification string...' },
-  { id: 'email',   label: '02_FREQUENCY // EMAIL ADDRESS',    type: 'email', placeholder: 'user@domain.protocol'           },
-]
-
 export default function ContactPageForm() {
   const [sent, setSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const { dict } = useLocale()
+  const cf = dict.contactForm
+
+  const fields = [
+    { id: 'name',  label: cf.field_name_label,  type: 'text',  placeholder: cf.field_name_placeholder  },
+    { id: 'email', label: cf.field_email_label, type: 'email', placeholder: cf.field_email_placeholder },
+  ]
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -27,8 +30,8 @@ export default function ContactPageForm() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <p className="font-display font-bold text-3xl text-aquamarine glow-text-aquamarine">Transmission Sent.</p>
-        <p className="font-body text-sm text-white/40">Signal received. Establishing reply channel shortly.</p>
+        <p className="font-display font-bold text-3xl text-aquamarine glow-text-aquamarine">{cf.success_heading}</p>
+        <p className="font-body text-sm text-white/40">{cf.success_body}</p>
       </div>
     )
   }
@@ -53,11 +56,11 @@ export default function ContactPageForm() {
 
       <div className="group">
         <label className="block font-body text-[10px] tracking-[0.3em] text-aquamarine/60 mb-4 uppercase group-focus-within:text-aquamarine transition-colors duration-200">
-          03_TRANSMISSION // MESSAGE BODY
+          {cf.field_message_label}
         </label>
         <textarea
           rows={5}
-          placeholder="Draft your query here..."
+          placeholder={cf.field_message_placeholder}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           className="w-full bg-surface/40 backdrop-blur-[32px] border border-aquamarine/15 rounded-xl p-6 font-body text-lg text-white placeholder-white/20 focus:outline-none focus:border-aquamarine/50 transition-colors duration-300 resize-none"
@@ -69,7 +72,7 @@ export default function ContactPageForm() {
           type="submit"
           className="group inline-flex items-center gap-6 bg-aquamarine text-obsidian font-display font-bold uppercase tracking-widest px-12 py-5 rounded-lg shadow-[0_0_30px_rgba(127,255,212,0.5)] hover:shadow-[0_0_50px_rgba(127,255,212,0.7)] hover:scale-[1.02] active:scale-95 transition-all duration-300"
         >
-          Send Transmission
+          {cf.submit}
           <span className="group-hover:translate-x-2 transition-transform duration-200">→</span>
         </button>
       </div>
