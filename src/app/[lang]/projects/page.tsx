@@ -49,7 +49,7 @@ export default function ProjectsPage() {
                       src={proj.coverImage}
                       alt={proj.title.join(' ')}
                       fill
-                      className="object-cover"
+                      className={`${proj.coverImageContain ? 'object-contain' : 'object-cover'} ${proj.coverImageBlend ? 'mix-blend-multiply' : ''}`}
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (

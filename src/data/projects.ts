@@ -14,6 +14,8 @@ export interface Project {
   tagline: string
   coverGradient: string
   coverImage?: string
+  coverImageContain?: boolean
+  coverImageBlend?: boolean
   meta: {
     role: string[]
     timeline: string
@@ -40,7 +42,7 @@ export interface Project {
     role: string
   }
   results: ProjectResult[]
-  gallery: Array<{ label: string; gradient: string; image?: string; document?: string }>
+  gallery: Array<{ label: string; gradient: string; image?: string; document?: string; url?: string; objectPosition?: string }>
 }
 
 // ─── Internal locale types ───────────────────────────────────────────────────
@@ -69,11 +71,13 @@ interface RawProject {
   title: string[]
   coverGradient: string
   coverImage?: string
+  coverImageContain?: boolean
+  coverImageBlend?: boolean
   meta: { stack: string[]; liveUrl?: string; period: string }
   challenge: { metric: { progress: number } }
   solution: { image?: string }
   resultsBase: Array<{ value: string; progress: number; accent: 'primary' | 'secondary' }>
-  galleryBase: Array<{ gradient: string; image?: string; document?: string }>
+  galleryBase: Array<{ gradient: string; image?: string; document?: string; url?: string; objectPosition?: string }>
   locales: Record<Locale, ProjectLocale>
 }
 
@@ -87,6 +91,8 @@ function merge(raw: RawProject, lang: string): Project {
     tagline: locale.tagline,
     coverGradient: raw.coverGradient,
     coverImage: raw.coverImage,
+    coverImageContain: raw.coverImageContain,
+    coverImageBlend: raw.coverImageBlend,
     meta: {
       role: locale.meta.role,
       timeline: locale.meta.timeline,
@@ -123,6 +129,8 @@ function merge(raw: RawProject, lang: string): Project {
       gradient: g.gradient,
       image: g.image,
       document: g.document,
+      url: g.url,
+      objectPosition: g.objectPosition,
       label: locale.gallery[i]?.label ?? '',
     })),
   }
@@ -292,6 +300,8 @@ const rawProjects: RawProject[] = [
   {
     slug: 'agileai',
     title: ['AGILE', 'AI'],
+    coverImage: '/gallery/agileai/agile-ai.png',
+    coverImageContain: true,
     coverGradient:
       'radial-gradient(ellipse at 30% 40%, rgba(59,130,246,0.22) 0%, rgba(14,165,233,0.10) 40%, transparent 70%), radial-gradient(ellipse at 80% 70%, rgba(20,184,166,0.18) 0%, transparent 60%)',
     meta: {
@@ -718,6 +728,8 @@ const rawProjects: RawProject[] = [
   {
     slug: 'custom-erp',
     title: ['CUSTOM', 'ERP'],
+    coverImage: '/gallery/erpnext/erpnext.png',
+    coverImageContain: true,
     coverGradient:
       'radial-gradient(ellipse at 30% 40%, rgba(100,116,139,0.25) 0%, rgba(71,85,105,0.12) 40%, transparent 70%), radial-gradient(ellipse at 80% 70%, rgba(79,70,229,0.15) 0%, transparent 60%)',
     meta: {
@@ -846,6 +858,8 @@ const rawProjects: RawProject[] = [
   {
     slug: 'nanolab-website',
     title: ['NANO', 'LAB'],
+    coverImage: '/gallery/nanolab/logo.png',
+    coverImageContain: true,
     coverGradient:
       'radial-gradient(ellipse at 30% 40%, rgba(127,255,212,0.22) 0%, rgba(0,255,255,0.08) 40%, transparent 70%), radial-gradient(ellipse at 80% 70%, rgba(32,178,170,0.18) 0%, transparent 60%)',
     meta: {
@@ -862,9 +876,7 @@ const rawProjects: RawProject[] = [
       { value: 'Solo', progress: 100, accent: 'secondary' },
     ],
     galleryBase: [
-      { gradient: 'linear-gradient(135deg, rgba(127,255,212,0.18) 0%, rgba(5,11,15,0.95) 100%)' },
-      { gradient: 'linear-gradient(135deg, rgba(0,255,255,0.12) 0%, rgba(5,11,15,0.95) 100%)'   },
-      { gradient: 'linear-gradient(135deg, rgba(32,178,170,0.18) 0%, rgba(5,11,15,0.95) 100%)'  },
+      { gradient: 'linear-gradient(135deg, rgba(127,255,212,0.10) 0%, rgba(5,11,15,0.97) 100%)', image: '/gallery/nanolab/nanolab.png', url: 'https://www.nanolab.tn/en' },
     ],
     locales: {
       en: {
@@ -901,9 +913,7 @@ const rawProjects: RawProject[] = [
           { label: 'Delivery',   description: 'Setup, design, i18n, SEO, and deployment, owned end-to-end in 2 months.' },
         ],
         gallery: [
-          { label: 'English Landing' },
-          { label: 'French Version' },
-          { label: 'Arabic RTL Layout' },
+          { label: 'Visit Live Site' },
         ],
       },
       fr: {
@@ -940,9 +950,7 @@ const rawProjects: RawProject[] = [
           { label: 'Livraison',   description: 'Setup, design, i18n, SEO et déploiement, maîtrisés de bout en bout en 2 mois.' },
         ],
         gallery: [
-          { label: 'Landing anglaise' },
-          { label: 'Version française' },
-          { label: 'Layout RTL arabe' },
+          { label: 'Visiter le site' },
         ],
       },
       ar: {
@@ -979,9 +987,7 @@ const rawProjects: RawProject[] = [
           { label: 'تسليم',         description: 'الإعداد والتصميم وi18n وSEO والنشر، مملوكة من البداية إلى النهاية في شهرين.' },
         ],
         gallery: [
-          { label: 'الصفحة الرئيسية الإنجليزية' },
-          { label: 'النسخة الفرنسية' },
-          { label: 'تخطيط RTL العربي' },
+          { label: 'زيارة الموقع' },
         ],
       },
     },
@@ -1000,19 +1006,21 @@ const rawProjects: RawProject[] = [
     challenge: { metric: { progress: 80 } },
     solution: {},
     resultsBase: [
-      { value: 'SSE',   progress: 90,  accent: 'primary'   },
-      { value: 'Cache', progress: 85,  accent: 'secondary' },
-      { value: 'PG',    progress: 100, accent: 'primary'   },
-      { value: '5+',    progress: 100, accent: 'secondary' },
+      { value: 'SSE',  progress: 90,  accent: 'primary'   },
+      { value: 'Cache', progress: 85, accent: 'secondary' },
+      { value: '~0',   progress: 100, accent: 'primary'   },
+      { value: '9+',   progress: 100, accent: 'secondary' },
     ],
     galleryBase: [
-      { gradient: 'linear-gradient(135deg, rgba(99,102,241,0.20) 0%, rgba(5,11,15,0.95) 100%)' },
-      { gradient: 'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(5,11,15,0.95) 100%)' },
-      { gradient: 'linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(5,11,15,0.95) 100%)' },
+      { gradient: 'linear-gradient(135deg, rgba(99,102,241,0.20) 0%, rgba(5,11,15,0.95) 100%)',  image: '/gallery/payroll/landing-page.png' },
+      { gradient: 'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(5,11,15,0.95) 100%)',  image: '/gallery/payroll/home-page.png' },
+      { gradient: 'linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(5,11,15,0.95) 100%)',  image: '/gallery/payroll/platform.png' },
+      { gradient: 'linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(5,11,15,0.95) 100%)',  image: '/gallery/payroll/the-scanner-tool.png' },
+      { gradient: 'linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(5,11,15,0.95) 100%)',  image: '/gallery/payroll/completness-matrix.png' },
     ],
     locales: {
       en: {
-        subtitle: 'Team Project · NDA',
+        subtitle: 'Freelance · NDA',
         category: 'Document Intelligence',
         tagline:
           'Full-stack SvelteKit platform using Mistral AI to classify and sort payroll documents automatically. Live progress streams over SSE, uploads deduplicate by content hash, and a cross-client document explorer ships with in-browser PDF and Excel previews.',
@@ -1039,19 +1047,21 @@ const rawProjects: RawProject[] = [
           ],
         },
         results: [
-          { label: 'Live Streaming',    description: 'Run progress streams to the browser over SSE. Browser disconnect cancels the server-side run cleanly; pending uploads resume without re-uploading.' },
-          { label: 'LLM Cost Cut',      description: 'Content-hash caching skips the model call for unchanged files. Global HTTP 429 rate limiter with exponential retry prevents batch failures.' },
-          { label: 'Data Migration',    description: 'SQLite to PostgreSQL with Drizzle ORM, including a one-time migration script. Dashboard KPI aggregation moved from in-memory JS into SQL.' },
-          { label: 'Formats Supported', description: 'PDF, docx, csv, xml, and xlsm. Zip archives unpack on upload with a progress indicator; Office files left intact; duplicates deduplicated by content hash.' },
+          { label: 'Live Streaming',      description: 'Run progress streams to the browser over SSE. Browser disconnect cancels the server-side run cleanly; pending uploads resume without re-uploading.' },
+          { label: 'LLM Cost Cut',        description: 'Content-hash caching skips the model call for unchanged files. Global HTTP 429 rate limiter with exponential retry prevents batch failures.' },
+          { label: 'Duplicate Files Hit', description: 'Content-hash deduplication skips unchanged files entirely on re-run — no redundant model calls, no duplicate period folders created.' },
+          { label: 'Formats Supported',   description: 'PDF, xlsx, xlsm, docx, dsn, txt, xml, csv, zip — plus any file detected by DSN content signature. Zip archives unpack on upload; Office files kept intact.' },
         ],
         gallery: [
+          { label: 'Marketing Site · Public Landing Page' },
           { label: 'Operations Dashboard · KPI Overview' },
-          { label: 'Document Explorer · PDF & Excel Preview' },
-          { label: 'Classification Pipeline · SSE Progress' },
+          { label: 'Three Spaces · One Platform' },
+          { label: 'Document Scanner · Upload & Classify' },
+          { label: 'Completeness Matrix · Document Audit' },
         ],
       },
       fr: {
-        subtitle: 'Projet d\'équipe · NDA',
+        subtitle: 'Freelance · NDA',
         category: 'Intelligence documentaire',
         tagline:
           'Plateforme SvelteKit full-stack utilisant Mistral AI pour classifier et trier automatiquement des documents de paie. La progression en direct est streamée via SSE, les uploads sont dédupliqués par hash de contenu, et un explorateur de documents multi-client inclut des aperçus PDF et Excel in-browser.',
@@ -1080,17 +1090,19 @@ const rawProjects: RawProject[] = [
         results: [
           { label: 'Streaming en direct',   description: 'La progression streame vers le navigateur via SSE. La déconnexion navigateur annule proprement le run côté serveur ; les uploads en attente reprennent.' },
           { label: 'Coûts LLM réduits',     description: 'Le cache par hash de contenu saute l\'appel modèle pour les fichiers inchangés. Rate limiter HTTP 429 global avec retry exponentiel.' },
-          { label: 'Migration de données',   description: 'SQLite vers PostgreSQL avec Drizzle ORM, script de migration one-shot. Agrégation KPIs déplacée du parsing JS en mémoire vers SQL.' },
-          { label: 'Formats supportés',      description: 'PDF, docx, csv, xml et xlsm. Les archives zip se décompressent à l\'upload ; fichiers Office conservés intacts ; doublons dédupliqués par hash.' },
+          { label: 'Fichiers dupliqués traités', description: 'La déduplication par hash de contenu ignore les fichiers inchangés à la ré-exécution — aucun appel modèle redondant, aucun dossier de période dupliqué créé.' },
+          { label: 'Formats supportés',          description: 'PDF, xlsx, xlsm, docx, dsn, txt, xml, csv, zip — plus tout fichier détecté par signature de contenu DSN. Archives zip décompressées à l\'upload ; fichiers Office conservés intacts.' },
         ],
         gallery: [
+          { label: 'Site Marketing · Page d\'accueil Publique' },
           { label: 'Dashboard Opérations · Vue KPIs' },
-          { label: 'Explorateur de documents · Aperçu PDF & Excel' },
-          { label: 'Pipeline de classification · Progression SSE' },
+          { label: 'Trois Espaces · Une Plateforme' },
+          { label: 'Outil Scanner · Reclassement documentaire' },
+          { label: 'Matrice de complétude · Audit documentaire' },
         ],
       },
       ar: {
-        subtitle: 'مشروع فريق · سري',
+        subtitle: 'مستقل · سري',
         category: 'ذكاء معالجة الوثائق',
         tagline:
           'منصة SvelteKit متكاملة تستخدم Mistral AI لتصنيف وترتيب وثائق الرواتب تلقائياً. تتدفق التقدم المباشر عبر SSE، تُرفَع الملفات مع إزالة التكرار بالـ hash، ومستكشف وثائق متعدد العملاء مع معاينة PDF وExcel في المتصفح.',
@@ -1119,13 +1131,160 @@ const rawProjects: RawProject[] = [
         results: [
           { label: 'بث مباشر',           description: 'التقدم يتدفق للمتصفح عبر SSE. قطع المتصفح يُلغي التشغيل من جهة الخادم نظيفاً؛ الرفعات المعلقة تستأنف دون إعادة رفع.' },
           { label: 'تخفيض تكلفة LLM',   description: 'التخزين المؤقت بالـ hash يتخطى استدعاء النموذج للملفات غير المتغيرة. محدِّد معدل HTTP 429 عالمي مع إعادة محاولة أسية.' },
-          { label: 'ترحيل البيانات',     description: 'SQLite إلى PostgreSQL مع Drizzle ORM وسكريبت ترحيل أحادي. تجميع KPIs نُقل من تحليل JS في الذاكرة إلى SQL.' },
-          { label: 'صيغ مدعومة',        description: 'PDF وdocx وcsv وxml وxlsm. الأرشيفات المضغوطة تُفكّ عند الرفع؛ ملفات Office تُحفظ كاملة؛ التكرارات مُزالة بالـ hash.' },
+          { label: 'ملفات مكررة مُعالَجة', description: 'إزالة التكرار بالـ hash تتخطى الملفات غير المتغيرة عند إعادة التشغيل — لا استدعاءات نموذج زائدة، لا مجلدات فترات مكررة.' },
+          { label: 'صيغ مدعومة',          description: 'PDF وxlsx وxlsm وdocx وdsn وtxt وxml وcsv وzip — بالإضافة لأي ملف مكتشَف بتوقيع محتوى DSN. الأرشيفات تُفكّ عند الرفع؛ ملفات Office تُحفظ كاملة.' },
         ],
         gallery: [
+          { label: 'الموقع التسويقي · صفحة الهبوط العامة' },
           { label: 'لوحة العمليات · نظرة عامة على KPIs' },
-          { label: 'مستكشف الوثائق · معاينة PDF وExcel' },
-          { label: 'خط التصنيف · تقدم SSE' },
+          { label: 'ثلاثة فضاءات · منصة واحدة' },
+          { label: 'أداة المسح · رفع وتصنيف الوثائق' },
+          { label: 'مصفوفة الاكتمال · تدقيق الوثائق' },
+        ],
+      },
+    },
+  },
+  // 8. Groupe BigArt
+  {
+    slug: 'groupe-bigart',
+    title: ['GROUPE', 'BIGART'],
+    coverImage: '/gallery/bigart/logo.png',
+    coverImageContain: true,
+    coverGradient:
+      'radial-gradient(ellipse at 30% 40%, rgba(139,92,246,0.22) 0%, rgba(168,85,247,0.08) 40%, transparent 70%), radial-gradient(ellipse at 80% 70%, rgba(99,102,241,0.18) 0%, transparent 60%)',
+    meta: {
+      stack: ['Next.js 16', 'Payload CMS 3', 'TypeScript', 'PostgreSQL', 'Cloudflare R2', 'Tailwind v4', 'Netlify'],
+      period: 'Sep 2026',
+    },
+    challenge: { metric: { progress: 100 } },
+    solution: { image: '/gallery/bigart/bigart.png' },
+    resultsBase: [
+      { value: '~80%', progress: 80,  accent: 'primary'   },
+      { value: '5x',   progress: 100, accent: 'secondary' },
+      { value: 'Solo', progress: 100, accent: 'primary'   },
+      { value: '0',    progress: 100, accent: 'secondary' },
+    ],
+    galleryBase: [
+      { gradient: 'linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(5,11,15,0.95) 100%)', image: '/gallery/bigart/hero-hom.png' },
+      { gradient: 'linear-gradient(135deg, rgba(168,85,247,0.15) 0%, rgba(5,11,15,0.95) 100%)', image: '/gallery/bigart/projects-page.png', objectPosition: 'top' },
+      { gradient: 'linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(5,11,15,0.95) 100%)',  image: '/gallery/bigart/stats-banner.png', objectPosition: 'top' },
+    ],
+    locales: {
+      en: {
+        subtitle: 'Freelance',
+        category: 'Full-Stack Web',
+        tagline:
+          'Full marketing site for a French marketing group built solo — Next.js 16 App Router, Payload CMS 3, PostgreSQL, Cloudflare R2, Tailwind v4 — from Figma to Netlify production with a self-service French CMS.',
+        meta: {
+          role: ['Full-Stack Developer'],
+          timeline: '1 Month',
+          platform: ['Web (Desktop + Mobile)'],
+        },
+        challenge: {
+          heading: 'Delivering a complete marketing site solo for a non-technical French client who needed to own their content fully after handoff — no developer, no deploy.',
+          accentWord: 'own their content fully',
+          body: [
+            'The client had no technical team. Every piece of content — services, projects, clients, key figures, expertises — had to be editable through a CMS that required zero developer involvement. The admin UI also had to be in French, with field hints explaining where each piece of content appears on the site.',
+            'On the rendering side, all public pages had to be fully static for performance, while still supporting CMS live preview. Keeping those two modes from drifting apart — sharing the same components but serving through different routes — was the core architectural challenge.',
+          ],
+          metric: { label: 'Deploy trigger', targetLabel: 'Publish-only' },
+        },
+        solution: {
+          heading: 'Payload CMS 3 embedded inside Next.js with a static public route and a separate dynamic /preview route sharing the same components — no drift possible.',
+          accentWord: 'no drift possible',
+          body: [
+            'Payload CMS 3 runs inside the Next.js app. Public pages are fully statically generated and rebuild automatically on publish. A separate /preview route renders the same page components dynamically with live CMS data — editors see changes before publish, and the same component tree serves both so they cannot drift. Autosave was explicitly blocked from triggering rebuilds while editors type.',
+            'All media flows through an upload pipeline that converts to WebP and caps at 2400px on ingest, cutting total media weight by ~80%. Database schema changes moved to versioned Drizzle migrations, fixing a silent issue where migrations had never run in production. A hidden prompt stalling every deploy for 5+ minutes was found and removed — deploys now complete in ~1 minute.',
+          ],
+        },
+        results: [
+          { label: 'Media weight cut',  description: 'Upload pipeline converts every image to WebP and caps at 2400px on ingest. Total media weight cut by ~80% including retroactive conversion of existing assets.' },
+          { label: 'Faster deploys',    description: 'Eliminated a hidden prompt stalling every deploy for 5+ minutes. Deploys now complete in ~1 minute — a 5x improvement. Build config moved into netlify.toml.' },
+          { label: 'Solo delivery',     description: 'Full site built alone — Figma to production. Pages, CMS content model, media pipeline, versioned migrations, deploy fix, and French admin UI.' },
+          { label: 'Dev calls post-handoff', description: 'Client owns all content through Payload CMS — services, projects, clients, key figures. No developer needed for any content update or new entry.' },
+        ],
+        gallery: [
+          { label: 'Homepage · Hero Section' },
+          { label: 'Projects Index · Category Filters' },
+          { label: 'Key Figures · Client Logos' },
+        ],
+      },
+      fr: {
+        subtitle: 'Freelance',
+        category: 'Web Full-Stack',
+        tagline:
+          "Site marketing complet pour un groupe français construit en solo — Next.js 16 App Router, Payload CMS 3, PostgreSQL, Cloudflare R2, Tailwind v4 — du Figma à la production Netlify avec un CMS auto-géré en français.",
+        meta: {
+          role: ['Développeur Full-Stack'],
+          timeline: '1 Mois',
+          platform: ['Web (Desktop + Mobile)'],
+        },
+        challenge: {
+          heading: "Livrer un site marketing complet en solo pour un client français non technique qui devait gérer son contenu de façon autonome après la livraison — sans développeur, sans déploiement.",
+          accentWord: 'gérer son contenu de façon autonome',
+          body: [
+            "Le client n'avait pas d'équipe technique. Chaque contenu — services, projets, clients, chiffres clés, expertises — devait être éditable via un CMS sans intervention développeur. L'interface admin devait aussi être en français, avec des indications expliquant où chaque contenu apparaît sur le site.",
+            "Côté rendu, toutes les pages publiques devaient être entièrement statiques pour la performance, tout en supportant la prévisualisation CMS en direct. Garder ces deux modes cohérents — mêmes composants mais routes distinctes — était le défi architectural central.",
+          ],
+          metric: { label: 'Déclencheur de déploiement', targetLabel: 'Publication uniquement' },
+        },
+        solution: {
+          heading: "Payload CMS 3 intégré dans Next.js avec une route publique statique et une route /preview dynamique partageant les mêmes composants — aucune dérive possible.",
+          accentWord: 'aucune dérive possible',
+          body: [
+            "Payload CMS 3 tourne dans l'app Next.js. Les pages publiques sont entièrement générées statiquement et se reconstruisent automatiquement à la publication. Une route /preview distincte rend les mêmes composants dynamiquement avec les données CMS en direct — les éditeurs voient les changements avant publication, et le même arbre de composants sert les deux, donc aucune dérive n'est possible. La sauvegarde automatique a été explicitement bloquée pour ne pas déclencher de reconstruction pendant la frappe.",
+            "Tous les médias passent par un pipeline d'upload qui convertit en WebP et plafonne à 2400px à l'ingestion, réduisant le poids total des médias de ~80%. Les changements de schéma de base de données sont passés aux migrations versionnées Drizzle, corrigeant un problème silencieux où les migrations n'avaient jamais tourné en production. Une invite cachée bloquant chaque déploiement plus de 5 minutes a été trouvée et supprimée — les déploiements prennent maintenant ~1 minute.",
+          ],
+        },
+        results: [
+          { label: 'Poids médias réduit', description: "Pipeline d'upload convertit chaque image en WebP et plafonne à 2400px. Poids total réduit de ~80% avec conversion rétroactive des assets existants." },
+          { label: 'Déploiements 5x plus rapides', description: "Suppression d'une invite cachée bloquant chaque déploiement plus de 5 minutes. Déploiements terminés en ~1 minute. Config build déplacée dans netlify.toml." },
+          { label: 'Livraison solo',      description: "Site complet construit seul — du Figma à la production. Pages, modèle de contenu CMS, pipeline médias, migrations versionnées, fix de déploiement et admin en français." },
+          { label: 'Appels dev post-livraison', description: "Le client gère tout le contenu via Payload CMS — services, projets, clients, chiffres clés. Aucun développeur nécessaire pour une mise à jour ou une nouvelle entrée." },
+        ],
+        gallery: [
+          { label: 'Accueil · Section Hero' },
+          { label: 'Index Projets · Filtres Catégorie' },
+          { label: 'Chiffres Clés · Logos Clients' },
+        ],
+      },
+      ar: {
+        subtitle: 'عمل حر',
+        category: 'ويب متكامل',
+        tagline:
+          'موقع تسويقي كامل لمجموعة فرنسية مبني بمفرده — Next.js 16 App Router وPayload CMS 3 وPostgreSQL وCloudflare R2 وTailwind v4 — من Figma إلى إنتاج Netlify مع نظام إدارة محتوى فرنسي ذاتي الخدمة.',
+        meta: {
+          role: ['مطور متكامل'],
+          timeline: 'شهر واحد',
+          platform: ['ويب (سطح مكتب + جوال)'],
+        },
+        challenge: {
+          heading: 'تسليم موقع تسويقي كامل بمفرده لعميل فرنسي غير تقني يحتاج إلى إدارة محتواه بالكامل بعد التسليم — دون مطور، دون نشر.',
+          accentWord: 'إدارة محتواه بالكامل',
+          body: [
+            'لم يكن لدى العميل فريق تقني. كل محتوى — الخدمات والمشاريع والعملاء والأرقام الرئيسية والخبرات — يجب أن يكون قابلاً للتحرير عبر نظام إدارة محتوى دون تدخل مطور. كان على واجهة الإدارة أيضاً أن تكون باللغة الفرنسية مع تلميحات للحقول تشرح أين يظهر كل محتوى على الموقع.',
+            'على صعيد العرض، كان يجب أن تكون جميع الصفحات العامة ثابتة تماماً للأداء، مع دعم المعاينة المباشرة لنظام إدارة المحتوى. الحفاظ على تزامن هذين الوضعين — نفس المكونات لكن عبر مسارات مختلفة — كان التحدي المعماري الأساسي.',
+          ],
+          metric: { label: 'مشغّل النشر', targetLabel: 'عند النشر فقط' },
+        },
+        solution: {
+          heading: 'Payload CMS 3 مدمج داخل Next.js مع مسار عام ثابت ومسار /preview ديناميكي مشتركان في نفس المكونات — لا انحراف ممكن.',
+          accentWord: 'لا انحراف ممكن',
+          body: [
+            'يعمل Payload CMS 3 داخل تطبيق Next.js. الصفحات العامة مُولَّدة ثابتة بالكامل وتُعاد بناؤها تلقائياً عند النشر. مسار /preview منفصل يُقدّم نفس مكونات الصفحة ديناميكياً مع بيانات CMS مباشرة — يرى المحررون التغييرات قبل النشر، ونفس شجرة المكونات تخدم الاثنين فلا انحراف ممكن. تم حظر الحفظ التلقائي صراحةً لمنع إطلاق إعادة البناء أثناء الكتابة.',
+            'تمر جميع الوسائط عبر خط أنابيب رفع يحوّل إلى WebP ويحدّ بـ 2400px عند الاستيعاب، مخفّضاً وزن الوسائط الإجمالي بـ ~80%. انتقلت تغييرات مخطط قاعدة البيانات إلى ترحيلات Drizzle ذات الإصدارات، مصلّحةً مشكلة صامتة حيث لم تُشغَّل الترحيلات قط في الإنتاج. تم العثور على موجّه خفي يوقف كل نشر لأكثر من 5 دقائق وإزالته — تكتمل عمليات النشر الآن في ~دقيقة واحدة.',
+          ],
+        },
+        results: [
+          { label: 'تخفيض وزن الوسائط',  description: 'خط أنابيب الرفع يحوّل كل صورة إلى WebP ويحدّ بـ 2400px. وزن الوسائط الإجمالي انخفض بـ ~80% مع تحويل رجعي للأصول الموجودة.' },
+          { label: 'نشر أسرع بـ 5x',     description: 'حذف موجّه خفي كان يوقف كل نشر لأكثر من 5 دقائق. عمليات النشر تكتمل الآن في ~دقيقة واحدة. إعداد البناء نُقل إلى netlify.toml.' },
+          { label: 'تسليم منفرد',         description: 'الموقع كاملاً مبني بمفرده — من Figma إلى الإنتاج. الصفحات ونموذج المحتوى وخط الوسائط والترحيلات وإصلاح النشر وواجهة الإدارة الفرنسية.' },
+          { label: 'مكالمات مطور بعد التسليم', description: 'العميل يدير كل المحتوى عبر Payload CMS — الخدمات والمشاريع والعملاء والأرقام الرئيسية. لا مطور مطلوب لأي تحديث أو إدخال جديد.' },
+        ],
+        gallery: [
+          { label: 'الرئيسية · قسم البطل' },
+          { label: 'فهرس المشاريع · فلاتر التصنيف' },
+          { label: 'الأرقام الرئيسية · شعارات العملاء' },
         ],
       },
     },
