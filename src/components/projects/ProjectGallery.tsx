@@ -10,7 +10,7 @@ const PAGE_SIZE = 4
 export default function ProjectGallery({
   gallery,
 }: {
-  gallery: Array<{ label: string; gradient: string; image?: string; document?: string }>
+  gallery: Array<{ label: string; gradient: string; image?: string; document?: string; url?: string; objectPosition?: string }>
 }) {
   const isClient = useIsClient()
   const [page, setPage] = useState(0)
@@ -63,53 +63,66 @@ export default function ProjectGallery({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {visible.map(({ label, gradient, image, document }) => (
-            <button
-              key={label}
-              onClick={() => {
-                if (document) {
-                  setDocumentViewer({ src: document, label })
-                  return
-                }
-                if (image) setLightbox({ src: image, label })
-              }}
-              className={`group relative aspect-video rounded-xl overflow-hidden border border-aquamarine/20 luminous-edge text-left w-full ${image || document ? 'cursor-zoom-in' : 'cursor-default'}`}
-            >
-              {image ? (
-                <Image
-                  src={image}
-                  alt={label}
-                  fill
-                  className="object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              ) : (
-                <>
-                  <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110" style={{ background: gradient }} />
-                  <div className="absolute inset-0 p-4 opacity-40 pointer-events-none">
-                    <div className="flex gap-1 mb-3">
-                      {[1, 2, 3].map((i) => <div key={i} className="w-2 h-2 rounded-full bg-aquamarine/50" />)}
+          {visible.map(({ label, gradient, image, document, url, objectPosition }) => {
+            const cardClass = `group relative aspect-video rounded-xl overflow-hidden border border-aquamarine/20 luminous-edge text-left w-full`
+            const inner = (
+              <>
+                {image ? (
+                  <Image
+                    src={image}
+                    alt={label}
+                    fill
+                    className={`transition-transform duration-700 group-hover:scale-105 ${url ? 'object-contain p-8' : 'object-cover'}`}
+                    style={!url ? { objectPosition: objectPosition ?? 'center' } : undefined}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                ) : (
+                  <>
+                    <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110" style={{ background: gradient }} />
+                    <div className="absolute inset-0 p-4 opacity-40 pointer-events-none">
+                      <div className="flex gap-1 mb-3">
+                        {[1, 2, 3].map((i) => <div key={i} className="w-2 h-2 rounded-full bg-aquamarine/50" />)}
+                      </div>
+                      <div className="space-y-2">
+                        {[80, 50, 65, 35].map((w, i) => (
+                          <div key={i} className="h-1.5 bg-aquamarine/30 rounded-full" style={{ width: `${w}%` }} />
+                        ))}
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      {[80, 50, 65, 35].map((w, i) => (
-                        <div key={i} className="h-1.5 bg-aquamarine/30 rounded-full" style={{ width: `${w}%` }} />
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className="absolute inset-0 bg-obsidian/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-start p-5 backdrop-blur-sm">
-                <span className="text-xs font-bold tracking-widest text-obsidian bg-aquamarine px-5 py-2.5 rounded-full uppercase shadow-xl font-display">
-                  {document ? 'Open Deck' : label}
-                </span>
-              </div>
-              {document && (
-                <span className="absolute top-4 right-4 rounded-full border border-aquamarine/40 bg-obsidian/75 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aquamarine backdrop-blur-sm font-body">
-                  PDF
-                </span>
-              )}
-            </button>
-          ))}
+                  </>
+                )}
+                <div className="absolute inset-0 bg-obsidian/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-start p-5 backdrop-blur-sm">
+                  <span className="text-xs font-bold tracking-widest text-obsidian bg-aquamarine px-5 py-2.5 rounded-full uppercase shadow-xl font-display">
+                    {url ? 'Visit Live Site' : document ? 'Open Deck' : label}
+                  </span>
+                </div>
+                {url && (
+                  <span className="absolute top-4 right-4 rounded-full border border-aquamarine/40 bg-obsidian/75 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aquamarine backdrop-blur-sm font-body">
+                    Live
+                  </span>
+                )}
+                {document && (
+                  <span className="absolute top-4 right-4 rounded-full border border-aquamarine/40 bg-obsidian/75 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-aquamarine backdrop-blur-sm font-body">
+                    PDF
+                  </span>
+                )}
+              </>
+            )
+
+            return (
+              <button
+                key={label}
+                onClick={() => {
+                  if (url) { window.open(url, '_blank', 'noreferrer'); return }
+                  if (document) { setDocumentViewer({ src: document, label }); return }
+                  if (image) setLightbox({ src: image, label })
+                }}
+                className={`${cardClass} ${url || image || document ? 'cursor-pointer' : 'cursor-default'}`}
+              >
+                {inner}
+              </button>
+            )
+          })}
         </div>
       </section>
 
