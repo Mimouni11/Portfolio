@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getProject } from '@/data/projects'
+import { getProject, getProjects } from '@/data/projects'
+import { LOCALES } from '@/lib/config'
 import Header from '@/components/Header'
 import SocialSidebar from '@/components/SocialSidebar'
 import Footer from '@/components/Footer'
@@ -9,6 +10,11 @@ import { ChallengeSection, SolutionSection } from '@/components/projects/Narrati
 import ProjectSidebar from '@/components/projects/ProjectSidebar'
 import ResultsGrid from '@/components/projects/ResultsGrid'
 import ProjectGallery from '@/components/projects/ProjectGallery'
+export function generateStaticParams() {
+  const slugs = getProjects('en').map((p) => p.slug)
+  return LOCALES.flatMap((lang) => slugs.map((slug) => ({ lang, slug })))
+}
+
 export async function generateMetadata({
   params,
 }: {
