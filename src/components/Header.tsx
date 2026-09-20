@@ -55,7 +55,7 @@ export default function Header() {
           href="/"
           className="font-display font-bold text-aquamarine tracking-tighter text-2xl glow-text-aquamarine"
         >
-          OBSERVATORY
+          MIMOUNI
         </TransitionLink>
 
         <NavLinks />
