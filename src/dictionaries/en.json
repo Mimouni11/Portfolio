@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "home": "HOME",
+    "projects": "PROJECTS",
+    "about": "ABOUT",
+    "contact": "CONTACT",
+    "getInTouch": "Get in Touch"
+  },
+  "hero": {
+    "eyebrow": "Mimouni Mohamed Aziz · Rades, Tunisia",
+    "h1_p1": "AI",
+    "h1_accent": "Engineer",
+    "h1_connector": "&",
+    "h1_italic": "Full-Stack",
+    "h1_p3": "Developer.",
+    "tagline": "I build things that run in production: agentic pipelines, generative AI systems, and full-stack web apps. Python and TypeScript, from training loops to deployed products with real users.",
+    "cta_portfolio": "View My Portfolio",
+    "cta_story": "Read My Story"
+  },
+  "about": {
+    "status": "Deployment: Active",
+    "heading_1": "Engineering",
+    "heading_2": "Philosophy",
+    "bio_1": "AI and fullstack engineer who ships things to production. I work across the full stack: from training loops and agentic pipelines to React frontends and containerized APIs. I care that real users can depend on what I build.",
+    "bio_1_accent": "production",
+    "bio_2": "Python and TypeScript are my primary languages. My work spans generative AI (StyleGAN2, CLIP, SDXL), multi-agent orchestration (LangGraph, RAG, LLM-as-judge), and production web services (FastAPI, Next.js, Docker). Based in Tunisia.",
+    "stack_label": "Core Stack",
+    "stack_roles": {
+      "python": "AI Backbone",
+      "pytorch": "Deep Learning",
+      "typescript": "Frontend + Backend",
+      "fastapi": "API Services",
+      "nextjs": "Web Apps",
+      "langgraph": "Agentic AI"
+    },
+    "cta_heading": "Want to work together?",
+    "cta_body": "Whether it's a project, a role, or just a conversation worth having.",
+    "cta_button": "Get in Touch",
+    "experience_title": "Work Experience",
+    "jobs": [
+      {
+        "company": "NanoLab",
+        "role": "Project Manager",
+        "period": "Apr 2026 – Present",
+        "bullets": [
+          "Managing a small cross-functional team across three concurrent projects: coordinating milestones, unblocking technical decisions, and keeping delivery on track.",
+          "Contributing to architecture and system design across projects, shaping technical direction alongside engineering.",
+          "Built the company website from scratch with Next.js."
+        ],
+        "stack": ["Next.js", "System Design", "Project Management"]
+      },
+      {
+        "company": "Bakchich",
+        "role": "Part-time Developer",
+        "period": "Jul 2025 – Mar 2026",
+        "bullets": [
+          "Built a KYC automation system from scratch: integrated Didit's identity verification API via a webhook handler and status-driven state machine. Live in production with tens of thousands of users, zero downtime since launch.",
+          "Led a full analytics migration across a 4-app Next.js monorepo: replaced PostHog with Amplitude via a custom Node.js server-side proxy, preventing client-side tracking gaps across all applications.",
+          "Maintained and improved 4 live applications in parallel, resolving production bugs under live conditions and adding lazy loading, Suspense partial rendering, WebM video conversion, and mobile optimizations."
+        ],
+        "stack": ["Next.js", "Node.js", "TypeScript", "Amplitude", "Didit API"]
+      },
+      {
+        "company": "Digital Identity",
+        "role": "Fullstack Developer Intern",
+        "period": "Feb 2024 – Jun 2024",
+        "bullets": [
+          "Built a full fleet management platform (web + mobile): real-time vehicle tracking, OpenStreetMap routing, QR code workflow automation, and an operations dashboard, delivered to a live client."
+        ],
+        "stack": ["React", "Node.js", "OpenStreetMap", "REST API"]
+      }
+    ]
+  },
+  "aboutPage": {
+    "eyebrow": "The Architect",
+    "title_1": "About",
+    "title_accent": "Me"
+  },
+  "projectsPage": {
+    "eyebrow": "Selected Work",
+    "title_1": "Projects &",
+    "title_accent": "Case Studies"
+  },
+  "contactPage": {
+    "eyebrow_left": "Status: Establishing Link",
+    "eyebrow_right": "Node_Contact_V4.0",
+    "title": "INITIATE_CONNECTION",
+    "subtitle": "System architect awaiting transmission. For collaboration inquiries, technical protocols, or encrypted direct lines, please populate the parameters below."
+  },
+  "contactForm": {
+    "field_name_label": "01_IDENTITY // FULL NAME",
+    "field_name_placeholder": "Enter identification string...",
+    "field_email_label": "02_FREQUENCY // EMAIL ADDRESS",
+    "field_email_placeholder": "user@domain.protocol",
+    "field_message_label": "03_TRANSMISSION // MESSAGE BODY",
+    "field_message_placeholder": "Draft your query here...",
+    "field_attachment_label": "04_PAYLOAD // ATTACHMENT (OPTIONAL)",
+    "submit": "Send Transmission",
+    "success_heading": "Transmission Sent.",
+    "success_body": "Signal received. Establishing reply channel shortly."
+  },
+  "meta": {
+    "home_title": "Mimouni Mohamed Aziz · AI Engineer & Full-Stack Developer",
+    "home_description": "AI and fullstack engineer building agentic pipelines, generative AI systems, and production web apps. Python and TypeScript, from training loops to deployed products with real users.",
+    "about_title": "About · Mimouni Mohamed Aziz",
+    "about_description": "AI and fullstack engineer based in Tunisia. Python and TypeScript across generative AI, multi-agent orchestration, and production web services.",
+    "projects_title": "Projects · Mimouni Mohamed Aziz",
+    "projects_description": "Selected case studies: FaceForge, AgileAI, Smart Cover, WavyVoice, Custom ERP, and the NanoLab corporate website.",
+    "contact_title": "Contact · Mimouni Mohamed Aziz",
+    "contact_description": "Reach out for collaboration, technical projects, or just a conversation worth having."
+  }
+}

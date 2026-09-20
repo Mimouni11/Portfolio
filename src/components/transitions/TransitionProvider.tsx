@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import ScrollNavigator from './ScrollNavigator'
 
 type Phase = 'idle' | 'exiting' | 'covering' | 'entering'
@@ -14,6 +14,8 @@ interface TransitionCtx {
 const Ctx = createContext<TransitionCtx>({ navigateTo: () => {}, phase: 'idle' })
 export const usePageTransition = () => useContext(Ctx)
 
+const LOCALES = ['en', 'fr', 'ar']
+
 export const ROUTE_LABELS: Record<string, string> = {
   '/': 'Home',
   '/projects': 'Projects',
@@ -24,32 +26,50 @@ export const ROUTE_LABELS: Record<string, string> = {
 export default function TransitionProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
+  const params = useParams()
+  const lang = (params?.lang as string) ?? 'en'
+
   const [phase, setPhase] = useState<Phase>('idle')
   const [destLabel, setDestLabel] = useState('')
   const prevPath = useRef(pathname)
+  const phaseRef = useRef<Phase>('idle')
+  const navTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const enterTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
-  // Detect route change → start enter animation
+  phaseRef.current = phase
+
   useEffect(() => {
-    if (pathname !== prevPath.current) {
-      prevPath.current = pathname
-      if (phase === 'covering' || phase === 'exiting') {
-        setPhase('entering')
-        const t = setTimeout(() => setPhase('idle'), 650)
-        return () => clearTimeout(t)
-      }
+    if (pathname === prevPath.current) return
+    prevPath.current = pathname
+
+    if (phaseRef.current === 'covering' || phaseRef.current === 'exiting') {
+      setPhase('entering')
+      clearTimeout(enterTimer.current)
+      enterTimer.current = setTimeout(() => setPhase('idle'), 650)
     }
-  }, [pathname, phase])
+  }, [pathname])
 
   const navigateTo = useCallback((href: string) => {
-    if (phase !== 'idle') return
-    setDestLabel(ROUTE_LABELS[href] ?? 'Loading')
+    if (phaseRef.current !== 'idle') return
+
+    // If href already has a locale prefix, use it as-is; otherwise prepend current lang
+    const localized = LOCALES.some((l) => href === `/${l}` || href.startsWith(`/${l}/`))
+      ? href
+      : href === '/'
+      ? `/${lang}`
+      : `/${lang}${href}`
+
+    // Strip locale prefix for label lookup
+    const bare = localized.replace(new RegExp(`^/(${LOCALES.join('|')})`), '') || '/'
+    setDestLabel(ROUTE_LABELS[bare] ?? 'Loading')
+
     setPhase('exiting')
-    const t = setTimeout(() => {
+    clearTimeout(navTimer.current)
+    navTimer.current = setTimeout(() => {
       setPhase('covering')
-      router.push(href)
+      router.push(localized)
     }, 650)
-    return () => clearTimeout(t)
-  }, [phase, router])
+  }, [router, lang])
 
   const overlayStyle: React.CSSProperties =
     phase === 'idle'
@@ -65,13 +85,11 @@ export default function TransitionProvider({ children }: { children: React.React
       {children}
       <ScrollNavigator />
 
-      {/* ── Page transition overlay ── */}
       <div
         className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
         style={{ backgroundColor: '#050B0F', ...overlayStyle }}
         aria-hidden="true"
       >
-        {/* Vertical data streams */}
         {Array.from({ length: 8 }, (_, i) => (
           <div
             key={i}
@@ -85,15 +103,11 @@ export default function TransitionProvider({ children }: { children: React.React
             }}
           />
         ))}
-
-        {/* Center content */}
         <div className="relative z-10 flex flex-col items-center gap-5">
-          {/* Spinner ring */}
           <div
             className="w-12 h-12 rounded-full border border-aquamarine/20 animate-spin"
             style={{ borderTopColor: '#7FFFD4' }}
           />
-          {/* Destination label */}
           <div className="text-center">
             <p className="font-body text-[9px] tracking-[0.5em] uppercase text-aquamarine/40 mb-2">
               Navigating to
@@ -102,7 +116,6 @@ export default function TransitionProvider({ children }: { children: React.React
               {destLabel}
             </p>
           </div>
-          {/* Pulsing dots */}
           <div className="flex gap-2">
             {[0, 1, 2].map((i) => (
               <div

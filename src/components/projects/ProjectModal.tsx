@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getProject } from '@/data/projects'
+import { useLocale } from '@/context/LocaleContext'
 import CaseStudyHero from './CaseStudyHero'
 import { ChallengeSection, SolutionSection } from './NarrativeSection'
 import ResultsGrid from './ResultsGrid'
@@ -45,7 +46,8 @@ export default function ProjectModal({
     return () => window.removeEventListener('keydown', onKey)
   }, [handleClose])
 
-  const project = getProject(slug)
+  const { lang } = useLocale()
+  const project = getProject(slug, lang)
   if (!project) return null
 
   return (

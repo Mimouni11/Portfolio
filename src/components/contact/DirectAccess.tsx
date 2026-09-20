@@ -1,7 +1,8 @@
 const contacts = [
-  { label: 'Encrypted_Mail',  value: 'hello@aquatic.dev',        href: 'mailto:hello@aquatic.dev' },
-  { label: 'Satellite_Link',  value: '+1 (000) 808-NODE',         href: 'tel:+10008086633'         },
-  { label: 'Global_Office',   value: 'Level 42, The Spire\nNeo-Shinjuku, Sector 7', href: null   },
+  { label: 'Encrypted_Mail', value: 'medazizmimouni35@gmail.com',              href: 'mailto:medazizmimouni35@gmail.com'           },
+  { label: 'LinkedIn',       value: 'mimouni-med-aziz',                        href: 'https://www.linkedin.com/in/mimouni-med-aziz/' },
+  { label: 'GitHub',         value: 'Mimouni11',                               href: 'https://github.com/Mimouni11'                 },
+  { label: 'Base_Location',  value: 'Tunisia',                                 href: null                                           },
 ]
 
 export default function DirectAccess() {
@@ -19,7 +20,12 @@ export default function DirectAccess() {
                 {label}
               </span>
               {href ? (
-                <a href={href} className="font-body text-white hover:text-aquamarine transition-colors duration-200 whitespace-pre-line">
+                <a
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel={href.startsWith('mailto') ? undefined : 'noreferrer'}
+                  className="font-body text-white hover:text-aquamarine transition-colors duration-200 whitespace-pre-line"
+                >
                   {value}
                 </a>
               ) : (

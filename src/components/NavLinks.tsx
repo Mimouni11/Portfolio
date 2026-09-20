@@ -1,25 +1,29 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
-const links = [
-  { label: 'HOME',     href: '/' },
-  { label: 'PROJECTS', href: '/projects' },
-  { label: 'ABOUT',    href: '/about' },
-  { label: 'CONTACT',  href: '/contact' },
-]
+import TransitionLink from './TransitionLink'
+import { useLocale } from '@/context/LocaleContext'
 
 export default function NavLinks() {
   const pathname = usePathname()
+  const { dict, lang } = useLocale()
+  const n = dict.nav
+
+  const links = [
+    { label: n.home,     href: '/' },
+    { label: n.projects, href: '/projects' },
+    { label: n.about,    href: '/about' },
+    { label: n.contact,  href: '/contact' },
+  ]
 
   return (
     <ul className="hidden md:flex items-center gap-8">
       {links.map(({ label, href }) => {
-        const active = pathname === href
+        const fullHref = href === '/' ? `/${lang}` : `/${lang}${href}`
+        const active = pathname === fullHref
         return (
           <li key={href}>
-            <Link
+            <TransitionLink
               href={href}
               className={`font-display text-sm uppercase tracking-tight transition-colors duration-200 pb-1 ${
                 active
@@ -28,7 +32,7 @@ export default function NavLinks() {
               }`}
             >
               {label}
-            </Link>
+            </TransitionLink>
           </li>
         )
       })}

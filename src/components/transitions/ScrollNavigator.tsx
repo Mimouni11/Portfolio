@@ -1,20 +1,24 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { usePageTransition, ROUTE_LABELS } from './TransitionProvider'
 
 const ROUTES = ['/', '/projects', '/about', '/contact']
+const LOCALES = ['en', 'fr', 'ar']
 const THRESHOLD = 200  // px of accumulated wheel delta to trigger nav
 
 export default function ScrollNavigator() {
   const pathname = usePathname()
+  const params = useParams()
   const { navigateTo, phase } = usePageTransition()
   const [progress, setProgress] = useState(0)
   const accumulated = useRef(0)
-  const resetTimer = useRef<ReturnType<typeof setTimeout>>()
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
-  const idx = ROUTES.indexOf(pathname)
+  // Strip locale prefix so /fr/about → /about for index lookup
+  const barePath = pathname.replace(new RegExp(`^/(${LOCALES.join('|')})(\/|$)`), '/') || '/'
+  const idx = ROUTES.indexOf(barePath)
   const nextRoute = idx !== -1 ? ROUTES[(idx + 1) % ROUTES.length] : null
   const nextLabel = nextRoute ? (ROUTE_LABELS[nextRoute] ?? '') : ''
 
@@ -69,7 +73,7 @@ export default function ScrollNavigator() {
       window.removeEventListener('wheel', onWheel)
       clearTimeout(resetTimer.current)
     }
-  }, [pathname, phase, nextRoute, navigateTo])
+  }, [barePath, phase, nextRoute, navigateTo])
 
   if (progress <= 0.02) return null
 
