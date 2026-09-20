@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 const socials = [
   {
     label: 'LinkedIn',
@@ -34,9 +36,14 @@ export default function ProfileCard() {
     <div className="flex flex-col gap-5">
       {/* Photo */}
       <div className="glass rounded-2xl overflow-hidden aspect-[3/4] relative luminous-edge">
-        <div className="absolute inset-0 bg-gradient-to-br from-surface to-obsidian flex items-center justify-center">
-          <span className="text-aquamarine/15 font-display font-bold text-7xl select-none">MA</span>
-        </div>
+        <Image
+          src="/gallery/me/me.jpg"
+          alt="Mimouni Mohamed Aziz"
+          fill
+          className="object-cover object-top"
+          sizes="(max-width: 768px) 100vw, 25vw"
+          priority
+        />
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-obsidian/80 to-transparent" />
       </div>
 
