@@ -94,6 +94,7 @@
     "field_email_placeholder": "user@domain.protocol",
     "field_message_label": "03_TRANSMISSION // MESSAGE BODY",
     "field_message_placeholder": "Draft your query here...",
+    "field_attachment_label": "04_PAYLOAD // ATTACHMENT (OPTIONAL)",
     "submit": "Send Transmission",
     "success_heading": "Transmission Sent.",
     "success_body": "Signal received. Establishing reply channel shortly."

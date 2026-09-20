@@ -94,6 +94,7 @@
     "field_email_placeholder": "utilisateur@domaine.protocole",
     "field_message_label": "03_TRANSMISSION // CORPS DU MESSAGE",
     "field_message_placeholder": "Rédigez votre message ici...",
+    "field_attachment_label": "04_CHARGE // PIÈCE JOINTE (OPTIONNEL)",
     "submit": "Envoyer la transmission",
     "success_heading": "Transmission envoyée.",
     "success_body": "Signal reçu. Établissement du canal de réponse en cours."

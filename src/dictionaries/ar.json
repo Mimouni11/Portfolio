@@ -94,6 +94,7 @@
     "field_email_placeholder": "مستخدم@نطاق.بروتوكول",
     "field_message_label": "03_الرسالة // نص الإرسال",
     "field_message_placeholder": "صِغ استفساركم هنا...",
+    "field_attachment_label": "04_الحمولة // مرفق (اختياري)",
     "submit": "إرسال",
     "success_heading": "تم الإرسال.",
     "success_body": "تم استقبال الإشارة. جارٍ إنشاء قناة الرد."
