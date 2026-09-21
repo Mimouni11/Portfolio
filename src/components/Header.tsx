@@ -50,10 +50,10 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4">
-      <nav className="glass rounded-full px-8 py-3 flex items-center justify-between w-[90%] max-w-7xl glow-nav relative">
+      <nav className="rounded-full px-6 md:px-8 py-3 flex items-center justify-between w-[90%] max-w-7xl glow-nav relative border border-aquamarine/20" style={{ background: 'rgba(2, 10, 10, 0.85)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
         <TransitionLink
           href="/"
-          className="font-display font-bold text-aquamarine tracking-tighter text-2xl glow-text-aquamarine"
+          className="font-display font-bold text-aquamarine tracking-tighter text-lg md:text-2xl glow-text-aquamarine shrink-0"
         >
           MIMOUNI
         </TransitionLink>
