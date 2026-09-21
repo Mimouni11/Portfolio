@@ -72,13 +72,13 @@ export default function TechStack() {
         {STACK_KEYS.map(({ name, roleKey }) => (
           <div
             key={name}
-            className="glass border border-aquamarine/20 rounded-xl p-4 group hover:border-aquamarine/50 hover:bg-aquamarine/10 transition-all duration-300 cursor-default"
+            className="glass border border-aquamarine/20 rounded-xl p-3 md:p-4 group hover:border-aquamarine/50 hover:bg-aquamarine/10 transition-all duration-300 cursor-default overflow-hidden"
           >
-            <span className="text-aquamarine/60 group-hover:text-aquamarine transition-colors duration-200 block mb-3">
+            <span className="text-aquamarine/60 group-hover:text-aquamarine transition-colors duration-200 block mb-2 md:mb-3">
               {ICONS[name]}
             </span>
-            <p className="font-display font-bold text-white text-sm mb-0.5">{name}</p>
-            <p className="font-body text-[10px] tracking-widest uppercase text-aquamarine/50">
+            <p className="font-display font-bold text-white text-xs md:text-sm mb-0.5 truncate">{name}</p>
+            <p className="font-body text-[9px] md:text-[10px] tracking-widest uppercase text-aquamarine/50 truncate">
               {a.stack_roles[roleKey]}
             </p>
           </div>
